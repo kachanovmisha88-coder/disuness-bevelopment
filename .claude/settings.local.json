@@ -38,7 +38,8 @@
       "Bash(zsh -l -c 'npx ts-node --compiler-options \"{\\\\\"module\\\\\":\\\\\"CommonJS\\\\\",\\\\\"moduleResolution\\\\\":\\\\\"node\\\\\"}\" scripts/import-content.ts 2>&1 | tail -30')",
       "Bash(zsh -l -c 'PORT=3210 nohup npm run dev > /tmp/db_dev4.log 2>&1 &')",
       "Bash(grep -q \"Ready\" /tmp/db_dev4.log)",
-      "Bash(curl -s http://localhost:3210/blog -o /tmp/b.html -w \"HTTP %{http_code}\\\\n\")"
+      "Bash(curl -s http://localhost:3210/blog -o /tmp/b.html -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(zsh -l -c 'npm run build 2>&1 | tail -30')"
     ]
   }
 }

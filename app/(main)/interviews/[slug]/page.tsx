@@ -4,7 +4,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import ShareQuoteButton from "@/components/ui/ShareQuoteButton";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -16,11 +16,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${iv.guestName} — ${iv.guestCompany}`,
     description: iv.keyQuote,
   };
-}
-
-export async function generateStaticParams() {
-  const interviews = await prisma.interview.findMany({ where: { published: true }, select: { slug: true } });
-  return interviews.map((iv) => ({ slug: iv.slug }));
 }
 
 export default async function InterviewPage({ params }: Props) {

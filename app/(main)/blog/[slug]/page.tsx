@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -12,11 +12,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await prisma.blogPost.findUnique({ where: { slug } });
   if (!post) return {};
   return { title: post.title, description: post.excerpt };
-}
-
-export async function generateStaticParams() {
-  const posts = await prisma.blogPost.findMany({ select: { slug: true } });
-  return posts.map((p) => ({ slug: p.slug }));
 }
 
 export default async function BlogPostPage({ params }: Props) {

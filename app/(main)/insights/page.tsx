@@ -3,7 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = { title: "Insights" };
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function InsightsPage() {
   const interviews = await prisma.interview.findMany({
