@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts loaded via next/font (see app/layout.tsx) and exposed as CSS vars */
+
+/* ─── Design tokens ─────────────────────────────────────────────────
+   Colors are stored as space-separated RGB channel triplets so Tailwind
+   opacity modifiers (bg-bg/90, border-gold/40, …) keep working through
+   the `rgb(var(--x-rgb) / <alpha-value>)` form defined in the config.
+   :root = dark (default). [data-theme="light"] overrides the triplets. */
+:root {
+  --bg-rgb:          10 10 10;
+  --bg-card-rgb:     15 15 15;
+  --bg-elevated-rgb: 22 22 22;
+  --bg-hover-rgb:    26 26 26;
+  --border-rgb:      30 30 30;
+  --border-mid-rgb:  42 42 42;
+  --fg-rgb:          245 245 245;
+  --fg-secondary-rgb: 136 136 136;
+  --fg-muted-rgb:    102 102 102;
+  --fg-faint-rgb:    74 74 74;
+  --gold-rgb:        201 168 76;
+  --gold-light-rgb:  223 192 106;
+  --gold-dim-rgb:    122 100 40;
+}
+
+[data-theme="light"] {
+  --bg-rgb:          245 240 232;  /* cream #f5f0e8 */
+  --bg-card-rgb:     236 228 214;
+  --bg-elevated-rgb: 228 218 201;
+  --bg-hover-rgb:    221 210 189;
+  --border-rgb:      217 205 184;
+  --border-mid-rgb:  197 183 156;
+  --fg-rgb:          10 10 10;      /* near-black text */
+  --fg-secondary-rgb: 74 67 56;
+  --fg-muted-rgb:    110 101 84;
+  --fg-faint-rgb:    154 143 125;
+  /* gold accents stay identical in both themes */
+}
+
+/* Hex-style aliases for the custom CSS rules below (theme-aware) */
+:root {
+  --bg:          rgb(var(--bg-rgb));
+  --bg-card:     rgb(var(--bg-card-rgb));
+  --bg-elevated: rgb(var(--bg-elevated-rgb));
+  --bg-hover:    rgb(var(--bg-hover-rgb));
+  --border:      rgb(var(--border-rgb));
+  --border-mid:  rgb(var(--border-mid-rgb));
+  --gold:        rgb(var(--gold-rgb));
+  --gold-light:  rgb(var(--gold-light-rgb));
+  --gold-dim:    rgb(var(--gold-dim-rgb));
+  --text-primary:   rgb(var(--fg-rgb));
+  --text-secondary: rgb(var(--fg-secondary-rgb));
+  --text-muted:     rgb(var(--fg-faint-rgb));
+}
+
+/* ─── Base ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Override browser default blue for all links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:not([class]) {
+  color: var(--gold);
+}
+
+a:not([class]):hover {
+  color: var(--gold-light);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* ─── Eyebrow label ──────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ─── Gold rule ──────────────────────────────────────────────────── */
+.rule-gold {
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 1.25rem;
+}
+
+/* ─── Interview reading content ──────────────────────────────────── */
+.interview-content {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: #c8c8c8;
+}
+
+.interview-content h2 {
+  font-family: var(--font-playfair), 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin: 2.75rem 0 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.interview-content h2:first-child {
+  border-top: none;
+  margin-top: 0;
+}
+
+.interview-content p {
+  margin-bottom: 1.375rem;
+}
+
+.interview-content strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.interview-content blockquote {
+  position: relative;
+  border-left: 3px solid var(--gold);
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.5rem 1.25rem 1.75rem;
+  background: var(--bg-elevated);
+  font-family: var(--font-playfair), 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.interview-content blockquote::before {
+  content: '\201C';
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--gold-dim);
+  font-family: var(--font-playfair), 'Playfair Display', serif;
+  pointer-events: none;
+}
+
+/* ─── Nav underline animation ────────────────────────────────────── */
+.nav-link {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ─── Form inputs (dark box, gold border on focus) ───────────────── */
+.field-input {
+  width: 100%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-mid);
+  border-radius: 2px;
+  padding: 0.75rem 0.875rem;
+  color: var(--text-primary);
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.field-input::placeholder {
+  color: var(--text-muted);
+}
+
+.field-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.25);
+}
+
+.field-label {
+  display: block;
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.375rem;
+}
+
+/* ─── Card hover ─────────────────────────────────────────────────── */
+.interview-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.interview-card:hover {
+  border-color: rgba(201, 168, 76, 0.35);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 168, 76, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ─── Fade-up animation ──────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up      { animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.fade-up-d1   { animation-delay: 0.1s; }
+.fade-up-d2   { animation-delay: 0.2s; }
+.fade-up-d3   { animation-delay: 0.3s; }
